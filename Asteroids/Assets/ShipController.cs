@@ -15,6 +15,9 @@ public class ShipController : MonoBehaviour
 	AudioSource audio;
 	public AudioSource thrust;
 
+	public float boundsX = 5;
+	public float boundsY = 5;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -26,6 +29,7 @@ public class ShipController : MonoBehaviour
 	{
 		TrackMouse ();
 		ProcessInput ();
+		OutOfBoundsCheck ();
 	}
 
 	private void ProcessInput()
@@ -53,6 +57,21 @@ public class ShipController : MonoBehaviour
 			Shoot();
 	}
 
+	public void OutOfBoundsCheck()
+	{
+		if (transform.position.x > boundsX / 2)
+			transform.position = new Vector3(-boundsX / 2, transform.position.y, transform.position.z);
+
+		if (transform.position.x < -boundsX / 2)
+			transform.position = new Vector3(boundsX / 2, transform.position.y, transform.position.z);
+
+		if (transform.position.y > boundsY / 2)
+			transform.position = new Vector3(transform.position.x, -boundsY / 2, transform.position.z);
+		
+		if (transform.position.y < -boundsY / 2)
+			transform.position = new Vector3(transform.position.x, boundsY / 2, transform.position.z);
+	}
+
 	public void Shoot()
 	{
 		audio.Play ();
@@ -76,5 +95,10 @@ public class ShipController : MonoBehaviour
 	{
 		GUI.Label (new Rect (10, 10, 150, 30), "Lives: " + lives);
 		GUI.Label (new Rect (10, 30, 150, 30), "Score: " + score);
+	}
+
+	void OnDrawGizmosSelected()
+	{
+		Gizmos.DrawWireCube (Vector3.zero, new Vector3 (boundsX, boundsY, 0));
 	}
 }

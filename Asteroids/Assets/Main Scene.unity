@@ -310,6 +310,8 @@ MonoBehaviour:
   score: 0
   missle: {fileID: 100000, guid: b805532c27b5fdb4dbf5ee39af4ac0d6, type: 2}
   thrust: {fileID: 214848677}
+  boundsX: 23
+  boundsY: 11
 --- !u!61 &470480029
 BoxCollider2D:
   m_ObjectHideFlags: 0
